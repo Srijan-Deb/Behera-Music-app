@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db, Song, Recording } from "@/lib/db";
 import { DragDropZone } from "@/components/library/DragDropZone";
@@ -16,8 +16,8 @@ import { AnalyticsDashboard } from "@/components/analytics/AnalyticsDashboard";
 import { WebRTCNetwork } from "@/components/network/WebRTCNetwork";
 import { MoodSlider } from "@/components/library/MoodSlider";
 import { ThemeSelector } from "@/components/ThemeSelector";
-import { motion } from "framer-motion";
-import { Music, Play, Heart, Mic, Trash, Globe } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Music, Play, Heart, Mic, Trash, Globe, Download } from "lucide-react";
 
 export default function Home() {
   const songs = useLiveQuery(() => db.songs.toArray()) || [];
@@ -27,6 +27,13 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'all' | 'favorites' | 'playlists' | 'recordings' | 'studio' | 'analytics' | 'network'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'date' | 'title' | 'artist'>('date');
+  const [isStandalone, setIsStandalone] = useState(false);
+
+  useEffect(() => {
+    const isStandaloneMode = window.matchMedia('(display-mode: standalone)').matches 
+      || (window.navigator as any).standalone;
+    setIsStandalone(isStandaloneMode);
+  }, []);
 
   const appName = "Behera".split("");
 
@@ -111,7 +118,22 @@ export default function Home() {
             </h1>
             <p className="text-muted-foreground">Your beautiful offline-first music companion.</p>
           </div>
-          <ThemeSelector />
+          <div className="flex items-center gap-4">
+            {!isStandalone && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => window.dispatchEvent(new CustomEvent('behera-trigger-install'))}
+                className="hidden sm:flex items-center gap-2 px-4 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-bold transition-all shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+              >
+                <Download className="w-4 h-4" />
+                Install App
+              </motion.button>
+            )}
+            <ThemeSelector />
+          </div>
         </header>
 
         {activeTab !== 'studio' && (

@@ -44,10 +44,16 @@ export function PwaInstallPrompt() {
       return () => clearTimeout(timer);
     }
 
+    const handleTriggerInstall = () => {
+      if (!isStandaloneMode) setShowPrompt(true);
+    };
+
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("behera-trigger-install", handleTriggerInstall);
 
     return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener("behera-trigger-install", handleTriggerInstall);
     };
   }, []);
 
