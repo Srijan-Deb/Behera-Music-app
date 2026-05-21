@@ -5,7 +5,8 @@ const CACHE_NAME = 'behera-offline-cache-v1';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
-  '/icon.svg',
+  '/icon-192.png',
+  '/icon-512.png',
 ];
 
 self.addEventListener('install', (event) => {

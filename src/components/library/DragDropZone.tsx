@@ -82,7 +82,7 @@ export function DragDropZone() {
 
   return (
     <div 
-      className={`border-2 border-dashed rounded-xl p-10 flex flex-col items-center justify-center transition-colors cursor-pointer
+      className={`border-2 border-dashed rounded-xl p-6 sm:p-10 flex flex-col items-center justify-center transition-colors cursor-pointer
         ${isDragging ? 'border-primary bg-primary/10' : 'border-muted-foreground/25 hover:border-primary/50'}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}

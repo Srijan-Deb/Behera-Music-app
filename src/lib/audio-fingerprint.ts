@@ -2,9 +2,15 @@ export const getAudioFingerprint = async (audioBlob: Blob): Promise<{ fingerprin
     try {
         const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
         
-        // Only decode the first 120 seconds to save memory
-        const arrayBuffer = await audioBlob.slice(0, 5 * 1024 * 1024).arrayBuffer(); // First ~5MB
-        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        // Use full blob — slicing at arbitrary byte offsets corrupts audio frame headers
+        const arrayBuffer = await audioBlob.arrayBuffer();
+        let audioBuffer: AudioBuffer;
+        try {
+            audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        } catch (decodeErr) {
+            console.warn("Fingerprint: Unable to decode audio data, skipping.", decodeErr);
+            return null;
+        }
         
         // Downsample to 11025Hz for chromaprint
         const offlineCtx = new OfflineAudioContext(1, audioBuffer.duration * 11025, 11025);

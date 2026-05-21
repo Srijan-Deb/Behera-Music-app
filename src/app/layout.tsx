@@ -40,7 +40,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Behera" />
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <ThemeProvider defaultTheme="dark">
           {children}
         </ThemeProvider>

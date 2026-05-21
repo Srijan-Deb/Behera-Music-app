@@ -13,7 +13,7 @@ export function PlaylistsView() {
   const handleCreatePlaylist = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newParams.name.trim() === '') return;
-    
+
     await db.playlists.add({
       name: newParams.name,
       songIds: [],
@@ -31,7 +31,7 @@ export function PlaylistsView() {
     <div className="w-full flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-semibold">Your Playlists</h3>
-        <button 
+        <button
           onClick={() => setIsCreating(true)}
           className="flex items-center gap-2 bg-primary/10 text-primary hover:bg-primary/20 px-3 py-1.5 rounded-md text-sm transition-colors"
         >
@@ -41,17 +41,19 @@ export function PlaylistsView() {
       </div>
 
       {isCreating && (
-        <form onSubmit={handleCreatePlaylist} className="flex gap-2 items-center bg-white/5 p-4 rounded-xl border border-white/10">
-          <input 
+        <form onSubmit={handleCreatePlaylist} className="flex flex-col sm:flex-row gap-2 sm:items-center bg-white/5 p-4 rounded-xl border border-white/10">
+          <input
             autoFocus
-            type="text" 
+            type="text"
             placeholder="Playlist name..."
             value={newParams.name}
             onChange={(e) => setNewParams({ name: e.target.value })}
-            className="flex-1 bg-black/20 border border-white/10 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+            className="w-full sm:flex-1 bg-black/20 border border-white/10 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
           />
-          <button type="submit" className="bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium">Save</button>
-          <button type="button" onClick={() => setIsCreating(false)} className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground">Cancel</button>
+          <div className="flex gap-2">
+            <button type="submit" className="flex-1 sm:flex-none bg-primary text-primary-foreground px-4 py-2 rounded-md text-sm font-medium">Save</button>
+            <button type="button" onClick={() => setIsCreating(false)} className="flex-1 sm:flex-none px-4 py-2 text-sm text-muted-foreground hover:text-foreground">Cancel</button>
+          </div>
         </form>
       )}
 
@@ -65,21 +67,21 @@ export function PlaylistsView() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {playlists.map(playlist => (
             <div key={playlist.id} className="group relative flex items-center gap-4 p-4 rounded-xl border border-white/5 hover:border-white/10 bg-white/5 hover:bg-white/10 transition-all cursor-pointer">
-               <div className="w-12 h-12 bg-black/20 border border-white/10 rounded-md flex items-center justify-center">
-                 <ListMusic className="w-5 h-5 text-muted-foreground" />
-               </div>
-               <div className="flex flex-col flex-1 overflow-hidden">
-                 <p className="font-semibold text-sm truncate">{playlist.name}</p>
-                 <p className="text-xs text-muted-foreground">{playlist.songIds.length} tracks</p>
-               </div>
-               
-               <button 
-                 onClick={(e) => { e.stopPropagation(); handleDelete(playlist.id); }}
-                 className="p-2 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
-                 title="Delete Playlist"
-               >
-                 <Trash className="w-4 h-4" />
-               </button>
+              <div className="w-12 h-12 bg-black/20 border border-white/10 rounded-md flex items-center justify-center">
+                <ListMusic className="w-5 h-5 text-muted-foreground" />
+              </div>
+              <div className="flex flex-col flex-1 overflow-hidden">
+                <p className="font-semibold text-sm truncate">{playlist.name}</p>
+                <p className="text-xs text-muted-foreground">{playlist.songIds.length} tracks</p>
+              </div>
+
+              <button
+                onClick={(e) => { e.stopPropagation(); handleDelete(playlist.id); }}
+                className="p-2 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                title="Delete Playlist"
+              >
+                <Trash className="w-4 h-4" />
+              </button>
             </div>
           ))}
         </div>

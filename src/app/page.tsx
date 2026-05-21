@@ -91,12 +91,12 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-background text-foreground pb-32 font-sans selection:bg-primary/30">
-      <div className="max-w-6xl mx-auto p-6 flex flex-col gap-8">
+    <main className="min-h-screen bg-background text-foreground pb-36 sm:pb-32 font-sans selection:bg-primary/30">
+      <div className="max-w-6xl mx-auto px-4 sm:p-6 flex flex-col gap-6 sm:gap-8">
         
-        <header className="flex flex-row items-center justify-between pt-10">
-          <div className="flex flex-col gap-2">
-            <h1 className="text-4xl font-extrabold tracking-tight flex items-center w-fit">
+        <header className="flex flex-row items-center justify-between pt-6 sm:pt-10">
+          <div className="flex flex-col gap-1 sm:gap-2">
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight flex items-center w-fit">
               {appName.map((letter, i) => (
                  <motion.span
                    key={i}
@@ -116,9 +116,9 @@ export default function Home() {
                  </motion.span>
               ))}
             </h1>
-            <p className="text-muted-foreground">Your beautiful offline-first music companion.</p>
+            <p className="text-muted-foreground text-sm sm:text-base">Your beautiful offline-first music companion.</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             {!isStandalone && (
               <motion.button
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -137,7 +137,7 @@ export default function Home() {
         </header>
 
         {activeTab !== 'studio' && (
-          <section className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <section className="mt-2 sm:mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             <div className="md:col-span-2">
               <DragDropZone />
             </div>
@@ -147,39 +147,43 @@ export default function Home() {
           </section>
         )}
 
-        <section className="flex flex-col gap-6 mt-4">
-          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4 overflow-x-auto pb-2">
-             <div className="flex bg-white/5 p-1 rounded-full border border-white/10 w-fit shrink-0">
-               <button onClick={() => setActiveTab('all')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'all' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
-                 All Songs
-               </button>
-               <button onClick={() => setActiveTab('favorites')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'favorites' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
-                 Favorites
-               </button>
-               <button onClick={() => setActiveTab('playlists')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'playlists' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
-                 Playlists
-               </button>
-               <button onClick={() => setActiveTab('recordings')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'recordings' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
-                 Recordings
-               </button>
-               <button onClick={() => setActiveTab('analytics')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'analytics' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
-                 Analytics
-               </button>
-               <button onClick={() => setActiveTab('network')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'network' ? 'bg-primary text-primary-foreground shadow-sm flex items-center gap-1.5' : 'text-muted-foreground hover:text-foreground flex items-center gap-1.5'}`}>
-                 <Globe className="w-4 h-4" /> Sync
-               </button>
-               <button onClick={() => setActiveTab('studio')} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === 'studio' ? 'bg-primary text-primary-foreground shadow-sm flex items-center gap-1.5' : 'text-muted-foreground hover:text-foreground flex items-center gap-1.5'}`}>
-                 <div className={`w-2 h-2 rounded-full ${activeTab === 'studio' ? 'bg-emerald-300' : 'bg-emerald-500/50'}`}></div> Studio
-               </button>
+        <section className="flex flex-col gap-4 sm:gap-6 mt-2 sm:mt-4">
+          <div className="flex flex-col gap-3">
+             {/* Tab bar — scrolls independently, no visible scrollbar */}
+             <div className="overflow-x-auto scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0">
+               <div className="flex bg-white/5 p-1 rounded-full border border-white/10 w-max sm:w-fit shrink-0">
+                 <button onClick={() => setActiveTab('all')} className={`px-3 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'all' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
+                   All Songs
+                 </button>
+                 <button onClick={() => setActiveTab('favorites')} className={`px-3 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'favorites' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
+                   Favorites
+                 </button>
+                 <button onClick={() => setActiveTab('playlists')} className={`px-3 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'playlists' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
+                   Playlists
+                 </button>
+                 <button onClick={() => setActiveTab('recordings')} className={`px-3 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'recordings' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
+                   Recordings
+                 </button>
+                 <button onClick={() => setActiveTab('analytics')} className={`px-3 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'analytics' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
+                   Analytics
+                 </button>
+                 <button onClick={() => setActiveTab('network')} className={`px-3 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'network' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
+                   <Globe className="w-4 h-4" /> Sync
+                 </button>
+                 <button onClick={() => setActiveTab('studio')} className={`px-3 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap flex items-center gap-1.5 ${activeTab === 'studio' ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>
+                   <div className={`w-2 h-2 rounded-full ${activeTab === 'studio' ? 'bg-emerald-300' : 'bg-emerald-500/50'}`}></div> Studio
+                 </button>
+               </div>
              </div>
              
+             {/* Search + Sort — always visible, never scrolled away */}
              {['all', 'favorites'].includes(activeTab) && (
-               <div className="flex items-center gap-3 w-full xl:w-auto shrink-0">
-                 <div className="flex-1 xl:w-64">
+               <div className="flex items-center gap-3 w-full">
+                 <div className="flex-1">
                    <SearchBar value={searchQuery} onChange={setSearchQuery} />
                  </div>
-                 <div className="relative flex items-center bg-white/5 border border-white/10 rounded-full px-3 py-1.5">
-                    <span className="text-xs text-muted-foreground mr-2 font-medium">Sort:</span>
+                 <div className="relative flex items-center bg-white/5 border border-white/10 rounded-full px-3 py-1.5 shrink-0">
+                    <span className="text-xs text-muted-foreground mr-2 font-medium hidden sm:inline">Sort:</span>
                     <select 
                       value={sortBy} 
                       onChange={(e) => setSortBy(e.target.value as 'date'|'title'|'artist')}
@@ -235,7 +239,7 @@ export default function Home() {
                          <p className="text-xs text-muted-foreground truncate">{rec.createdAt.toLocaleString()}</p>
                       </div>
 
-                      <button onClick={(e) => deleteRecording(e, rec.id)} className="p-2 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive">
+                      <button onClick={(e) => deleteRecording(e, rec.id)} className="p-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive">
                          <Trash className="w-4 h-4" />
                       </button>
                     </div>
@@ -303,7 +307,7 @@ export default function Home() {
                         
                         <button 
                            onClick={(e) => toggleFavorite(e, song)} 
-                           className={`p-2 rounded-full transition-colors opacity-0 group-hover:opacity-100 ${song.isFavorite ? 'opacity-100 text-red-500 hover:bg-red-500/10' : 'text-muted-foreground hover:bg-white/10 hover:text-foreground'}`}
+                           className={`p-2 rounded-full transition-colors sm:opacity-0 sm:group-hover:opacity-100 ${song.isFavorite ? 'opacity-100 text-red-500 hover:bg-red-500/10' : 'opacity-100 sm:opacity-0 text-muted-foreground hover:bg-white/10 hover:text-foreground'}`}
                            title={song.isFavorite ? "Remove from favorites" : "Add to favorites"}
                         >
                            <Heart className={`w-4 h-4 ${song.isFavorite ? 'fill-current' : ''}`} />

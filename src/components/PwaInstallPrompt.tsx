@@ -117,13 +117,19 @@ export function PwaInstallPrompt() {
                   <span className="bg-white/10 px-1.5 py-0.5 rounded text-[10px]">Step 2</span> Scroll and tap <span className="text-white font-bold flex items-center gap-1">Add to Home Screen <PlusSquare className="w-3 h-3"/></span>
                 </p>
               </div>
-            ) : (
+            ) : deferredPrompt ? (
               <button
                 onClick={handleInstallClick}
                 className="w-full bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-bold py-3 rounded-xl transition-all shadow-lg active:scale-95"
               >
                 Install Now
               </button>
+            ) : (
+              <div className="bg-white/5 rounded-xl p-3 flex flex-col gap-2 border border-white/5">
+                <p className="text-sm text-muted-foreground font-medium text-center leading-relaxed">
+                  To install, click the <strong className="text-white">Install</strong> icon in your browser's address bar, or select <strong className="text-white">Add to Home screen</strong> from the browser menu.
+                </p>
+              </div>
             )}
             
             <button 
